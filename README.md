@@ -24,12 +24,12 @@ Live Vote Track is a robust Python-based system that enables real-time vote coll
 ## Project Structure
 ```
 live-vote-track/
-├── data/ # Data directory (ignored by git)
+├── dataset/ # Data directory (ignored by git)
 │ ├── raw/ # Raw voting data
-│ ├── processed/ # Cleaned and validated votes
-│ └── interim/ # Intermediate processing data
+├── prepared_dataset/ # Data directory (ignored by git)
+│ └── score/
+│ └── score2/
 ├── runs/ # Experiment tracking and logs
-├── my_opensource_project/ # Main package directory
 ├── tests/ # Test files
 └── tools/ # Utility scripts
 ```
