@@ -22,6 +22,7 @@ Live Vote Track is a robust Python-based system that enables real-time vote coll
 - Interactive live streams
 
 ## Project Structure
+```
 live-vote-track/
 ├── data/ # Data directory (ignored by git)
 │ ├── raw/ # Raw voting data
@@ -42,7 +43,7 @@ live-vote-track/
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/live-vote-track.git
+git clone https://github.com/Noppagorn/live-vote-track.git
 cd live-vote-track
 ```
 
@@ -101,7 +102,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
-- 📫 For bug reports and feature requests, please use the [GitHub Issues](https://github.com/yourusername/live-vote-track/issues)
+- 📫 For bug reports and feature requests, please use the [GitHub Issues](https://github.com/Noppagorn/live-vote-track/issues)
 - 💬 For questions and discussions, join our [Discord Community](https://discord.gg/yourinvitelink)
 
 ## Acknowledgments
