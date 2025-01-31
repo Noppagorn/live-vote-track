@@ -1,0 +1,12 @@
+path: "./live-vote-track/prepared_dataset/score/trainning" # dataset root dir
+train: "train" # train folder (relative to 'path')
+val: "val" # validation folder (relative to 'path')
+test: "test"
+
+# Classes list
+names:
+    0: 1
+    1: 2
+    2: 3
+    3: 4
+    4: 5
