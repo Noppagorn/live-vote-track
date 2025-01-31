@@ -47,6 +47,9 @@ data/*
 !data/processed/.gitkeep
 !data/interim/.gitkeep
 
+prepared_dataset/*
+dataset/*
+
 # Experiment and training runs
 runs/
 !runs/.gitkeep

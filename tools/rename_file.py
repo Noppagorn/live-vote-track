@@ -1,9 +1,11 @@
 import os
 import argparse
+import re
 
 def rename_files_in_folder(folder_path, base_name):
     """
-    Renames every file in the specified folder to the format: base_name + number (zero-padded).
+    Renames files in the specified folder that do not match the base pattern.
+    It continues numbering from the last correctly named file.
 
     Args:
         folder_path (str): The path to the folder containing the files to be renamed.
@@ -15,38 +17,42 @@ def rename_files_in_folder(folder_path, base_name):
     try:
         # List all files in the folder
         files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+        
+        # Define the regex pattern to match correctly named files
+        pattern = re.compile(rf"^{re.escape(base_name)}(\d+)\..+$")
+        
+        # Identify the highest existing index in correctly named files
+        max_index = 0
+        for file in files:
+            match = pattern.match(file)
+            if match:
+                max_index = max(max_index, int(match.group(1)))
+        
+        # Iterate through the files and rename only those that don't match the pattern
+        for file in files:
+            if not pattern.match(file):
+                file_extension = os.path.splitext(file)[1]
+                max_index += 1  # Increment the index
+                new_name = f"{base_name}{str(max_index)}{file_extension}"
+                
+                old_path = os.path.join(folder_path, file)
+                new_path = os.path.join(folder_path, new_name)
+                
+                os.rename(old_path, new_path)
+                print(f"Renamed '{file}' -> '{new_name}'")
 
-        # Calculate the zero-padding width based on the number of files
-        num_files = len(files)
-        padding_width = len(str(num_files))
-
-        # Iterate through the files and rename them
-        for index, file in enumerate(files, start=1):
-            # Extract the file extension
-            file_extension = os.path.splitext(file)[1]
-
-            # Create the new file name with zero-padding
-            new_name = f"{base_name}{str(index).zfill(padding_width)}{file_extension}"
-
-            # Construct the full paths for renaming
-            old_path = os.path.join(folder_path, file)
-            new_path = os.path.join(folder_path, new_name)
-
-            # Rename the file
-            os.rename(old_path, new_path)
-
-        print(f"Successfully renamed {len(files)} files in '{folder_path}'.")
+        print("Renaming completed successfully.")
 
     except Exception as e:
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Rename all files in a folder to a specified base name with sequential numbering.",
+        description="Rename files that do not match the base pattern while continuing numbering.",
         epilog="Example: python rename_files.py /path/to/folder base_name_"
     )
-    parser.add_argument("folder_path", type=str, help="The path to the folder containing the files to be renamed. For example: /home/user/documents.")
-    parser.add_argument("base_name", type=str, help="The base name for the renamed files. For example: file_ or image_.")
+    parser.add_argument("folder_path", type=str, help="The path to the folder containing the files to be renamed.")
+    parser.add_argument("base_name", type=str, help="The base name for the renamed files.")
 
     args = parser.parse_args()
 
